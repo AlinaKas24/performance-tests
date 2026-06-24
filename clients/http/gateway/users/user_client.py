@@ -15,10 +15,10 @@ class CreateUserRequest(TypedDict):
 
 class UsersGatewayHTTPClient(HTTPClient):
     def get_user_api(self, user_id: str) -> Response:
-        return self.get(f"/v1/users/{user_id}")
+        return self.get(f"/api/v1/users/{user_id}")
 
     def post_user_api(self, request: CreateUserRequest) -> Response:
-        return self.post("/v1/users", json=request)
+        return self.post("/api/v1/users", json=request)
 
 
 user_clent = UsersGatewayHTTPClient(client=Client(base_url="https://localhost:8003"))
