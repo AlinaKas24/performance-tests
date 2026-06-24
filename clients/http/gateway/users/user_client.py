@@ -1,6 +1,6 @@
 from typing import Any, TypedDict
 
-from httpx import Response
+from httpx import Response, Client
 
 from clients.http.client import HTTPClient
 
@@ -17,5 +17,8 @@ class UsersGatewayHTTPClient(HTTPClient):
     def get_user_api(self, user_id: str) -> Response:
         return self.get(f"/v1/users/{user_id}")
 
-    def post_user_api(self, request) -> Response:
+    def post_user_api(self, request: CreateUserRequest) -> Response:
         return self.post("/v1/users", json=request)
+
+
+user_clent = UsersGatewayHTTPClient(client=Client(base_url="https://localhost:8003"))
