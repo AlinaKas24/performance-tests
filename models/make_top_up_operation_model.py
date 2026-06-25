@@ -13,10 +13,10 @@ class MakeTopUpOperation(BaseModel):
     type: str
     status: str
     amount: int
-    cardId: str
+    card_id: str
     category: str
-    createdAt: str
-    accountId: str
+    created_at: str
+    account_id: str
 
 
 class MakeTopUpOperationResponse(BaseModel):

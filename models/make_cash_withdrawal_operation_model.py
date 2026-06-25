@@ -6,10 +6,10 @@ class MakeCashWithdrawalOperation(BaseModel):
     type: str
     status: str
     amount: int
-    cardId: str
+    card_id: str
     category: str
-    createdAt: str
-    accountId: str
+    created_at: str
+    account_id: str
 
 
 class MakeCashWithdrawalOperationResponse(BaseModel):
@@ -19,6 +19,6 @@ class MakeCashWithdrawalOperationResponse(BaseModel):
 class MakeCashWithdrawalRequest(BaseModel):
     status: str = Field(default="COMPLETED")
     amount: float = Field(default=55.77)
-    cardId: str
-    accountId: str
+    card_id: str
+    account_id: str
     category: str = Field(default="taxi")

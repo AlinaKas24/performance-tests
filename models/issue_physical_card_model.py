@@ -8,11 +8,11 @@ class Card(BaseModel):
     cvv: str
     type: str
     status: str
-    accountId: str
-    cardNumber: str
-    cardHolder: str
-    expiryDate: str
-    paymentSystem: str
+    account_id: str
+    card_number: str
+    card_holder: str
+    expiry_date: str
+    payment_system: str
 
 
 class IssuePhysicalCardResponse(BaseModel):
@@ -20,5 +20,5 @@ class IssuePhysicalCardResponse(BaseModel):
 
 
 class IssuePhysicalCardRequest(BaseModel):
-    userId: str
-    accountId: str
+    user_id: str
+    account_id: str

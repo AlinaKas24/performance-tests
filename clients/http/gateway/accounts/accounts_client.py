@@ -36,13 +36,15 @@ class AccountsGatewayHTTPClient(HTTPClient):
     def open_deposit_account_api(self, request: OpenDepositAccountRequest) -> Response:
 
         return self.post(
-            "/api/v1/accounts/open-deposit-account", json=request.model_dump()
+            "/api/v1/accounts/open-deposit-account",
+            json=request.model_dump(by_alias=True),
         )
 
     def open_savings_account_api(self, request: OpenSavingsAccountRequest) -> Response:
 
         return self.post(
-            "/api/v1/accounts/open-savings-account", json=request.model_dump()
+            "/api/v1/accounts/open-savings-account",
+            json=request.model_dump(by_alias=True),
         )
 
     def open_debit_card_account_api(
@@ -50,7 +52,8 @@ class AccountsGatewayHTTPClient(HTTPClient):
     ) -> Response:
 
         return self.post(
-            "/api/v1/accounts/open-debit-card-account", json=request.model_dump()
+            "/api/v1/accounts/open-debit-card-account",
+            json=request.model_dump(by_alias=True),
         )
 
     def open_credit_card_account_api(
@@ -58,7 +61,8 @@ class AccountsGatewayHTTPClient(HTTPClient):
     ) -> Response:
 
         return self.post(
-            "/api/v1/accounts/open-credit-card-account", json=request.model_dump()
+            "/api/v1/accounts/open-credit-card-account",
+            json=request.model_dump(by_alias=True),
         )
 
     # Добавили новый метод
@@ -69,25 +73,25 @@ class AccountsGatewayHTTPClient(HTTPClient):
 
     # Добавили новый метод
     def open_deposit_account(self, user_id: str) -> OpenDepositAccountResponse:
-        request = OpenDepositAccountRequest(userId=user_id)
+        request = OpenDepositAccountRequest(user_id=user_id)
         response = self.open_deposit_account_api(request)
         return response.json()
 
     # Добавили новый метод
     def open_savings_account(self, user_id: str) -> OpenSavingsAccountResponse:
-        request = OpenSavingsAccountRequest(userId=user_id)
+        request = OpenSavingsAccountRequest(user_id=user_id)
         response = self.open_savings_account_api(request)
         return response.json()
 
     # Добавили новый метод
     def open_debit_card_account(self, user_id: str) -> OpenDebitCardAccountResponse:
-        request = OpenDebitCardAccountRequest(userId=user_id)
+        request = OpenDebitCardAccountRequest(user_id=user_id)
         response = self.open_debit_card_account_api(request)
         return response.json()
 
     # Добавили новый метод
     def open_credit_card_account(self, user_id: str) -> OpenCreditCardAccountResponse:
-        request = OpenCreditCardAccountRequest(userId=user_id)
+        request = OpenCreditCardAccountRequest(user_id=user_id)
         response = self.open_credit_card_account_api(request)
         return response.json()
 

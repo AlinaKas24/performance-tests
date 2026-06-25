@@ -4,10 +4,10 @@ from pydantic import BaseModel
 class User(BaseModel):
     id: str
     email: str
-    lastName: str
-    firstName: str
-    middleName: str
-    phoneNumber: str
+    last_name: str
+    first_name: str
+    middle_name: str
+    phone_number: str
 
 
 class GetUserResponse(BaseModel):

@@ -2,9 +2,9 @@ from pydantic import BaseModel
 
 
 class OperationsSummaryResponse(BaseModel):
-    spentAmount: int
-    receivedAmount: int
-    cashbackAmount: int
+    spent_amount: int
+    received_amount: int
+    cashback_amount: int
 
 
 class GetOperationsSummaryResponse(BaseModel):

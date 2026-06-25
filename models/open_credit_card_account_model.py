@@ -4,7 +4,7 @@ from models.issue_physical_card_model import Card
 
 
 class OpenCreditCardAccountRequest(BaseModel):
-    userId: str
+    user_id: str
 
 
 class Account(BaseModel):

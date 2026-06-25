@@ -18,7 +18,7 @@ class CreateUserResponse(BaseModel):
 
 class CreateUserRequest(BaseModel):
     email: str = Field(default=f"user.{time.time()}@example.com")
-    lastName: str = Field(default="string")
-    firstName: str = Field(default="string")
-    middleName: str = Field(default="string")
-    phoneNumber: str = Field(default="string")
+    last_name: str = Field(default="string")
+    first_name: str = Field(default="string")
+    middle_name: str = Field(default="string")
+    phone_number: str = Field(default="string")

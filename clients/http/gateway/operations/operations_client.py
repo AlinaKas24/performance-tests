@@ -72,34 +72,40 @@ class OperationsGatewayHTTPClient(HTTPClient):
 
     def make_fee_operation_api(self, request: MakeFeeRequest) -> Response:
         return self.post(
-            "/api/v1/operations/make-fee-operation", json=request.model_dump()
+            "/api/v1/operations/make-fee-operation",
+            json=request.model_dump(by_alias=True),
         )
 
     def make_top_up_operation_api(self, request: MakeTopUpRequest) -> Response:
         return self.post(
-            "/api/v1/operations/make-top-up-operation", json=request.model_dump()
+            "/api/v1/operations/make-top-up-operation",
+            json=request.model_dump(by_alias=True),
         )
 
     def make_cashback_operation_api(self, request: MakeCashbackRequest) -> Response:
         return self.post(
-            "/api/v1/operations/make-cashback-operation", json=request.model_dump()
+            "/api/v1/operations/make-cashback-operation",
+            json=request.model_dump(by_alias=True),
         )
 
     def make_transfer_operation_api(self, request: MakeTransferRequest) -> Response:
         return self.post(
-            "/api/v1/operations/make-transfer-operation", json=request.model_dump()
+            "/api/v1/operations/make-transfer-operation",
+            json=request.model_dump(by_alias=True),
         )
 
     def make_purchase_operation_api(self, request: MakePurchaseRequest) -> Response:
         return self.post(
-            "/api/v1/operations/make-purchase-operation", json=request.model_dump()
+            "/api/v1/operations/make-purchase-operation",
+            json=request.model_dump(by_alias=True),
         )
 
     def make_bill_payment_operation_api(
         self, request: MakeBillPaymentRequest
     ) -> Response:
         return self.post(
-            "/api/v1/operations/make-bill-payment-operation", json=request.model_dump()
+            "/api/v1/operations/make-bill-payment-operation",
+            json=request.model_dump(by_alias=True),
         )
 
     def make_cash_withdrawal_operation_api(
@@ -107,7 +113,7 @@ class OperationsGatewayHTTPClient(HTTPClient):
     ) -> Response:
         return self.post(
             "/api/v1/operations/make-cash-withdrawal-operation",
-            json=request.model_dump(),
+            json=request.model_dump(by_alias=True),
         )
 
     def get_operations(self, account_id: str) -> GetOperationsResponse:

@@ -14,11 +14,11 @@ class Card(BaseModel):
     cvv: str
     type: str
     status: str
-    accountId: str
-    cardNumber: str
-    cardHolder: str
-    expiryDate: str
-    paymentSystem: str
+    account_id: str
+    card_number: str
+    card_holder: str
+    expiry_date: str
+    payment_system: str
 
 
 class IssueVirtualCardResponse(BaseModel):

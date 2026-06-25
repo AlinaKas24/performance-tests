@@ -14,7 +14,7 @@ class UsersGatewayHTTPClient(HTTPClient):
         return self.get(f"/api/v1/users/{user_id}")
 
     def create_user_api(self, request: CreateUserRequest) -> Response:
-        return self.post("/api/v1/users", json=request.model_dump())
+        return self.post("/api/v1/users", json=request.model_dump(by_alias=True))
 
     def create_user(self) -> CreateUserResponse:
         request = CreateUserRequest()

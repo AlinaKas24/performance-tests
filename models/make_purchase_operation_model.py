@@ -4,8 +4,8 @@ from pydantic import BaseModel, Field
 class MakePurchaseRequest(BaseModel):
     status: str = Field(default="COMPLETED")
     amount: float = Field(default=55.77)
-    cardId: str
-    accountId: str
+    card_id: str
+    account_id: str
     category: str = Field(default="taxi")
 
 
@@ -14,10 +14,10 @@ class MakePurchaseOperation(BaseModel):
     type: str
     status: str
     amount: int
-    cardId: str
+    card_id: str
     category: str
-    createdAt: str
-    accountId: str
+    created_at: str
+    account_id: str
 
 
 class MakePurchaseOperationResponse(BaseModel):

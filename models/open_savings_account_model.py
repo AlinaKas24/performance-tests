@@ -16,4 +16,4 @@ class OpenSavingsAccountResponse(BaseModel):
 
 
 class OpenSavingsAccountRequest(BaseModel):
-    userId: str
+    user_id: str
