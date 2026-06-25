@@ -5,53 +5,24 @@ from httpx import Response
 
 from clients.http.client import HTTPClient
 from clients.http.gateway.client import build_gateway_http_client
-
-
-class UserDict(TypedDict):
-    id: str
-    email: str
-    lastName: str
-    firstName: str
-    middleName: str
-    phoneNumber: str
-
-
-class GetUserResponseDict(TypedDict):
-    user: UserDict
-
-
-class CreateUserRequestDict(TypedDict):
-    email: str
-    lastName: str
-    firstName: str
-    middleName: str
-    phoneNumber: str
-
-
-class CreateUserResponseDict(TypedDict):
-    user: UserDict
+from models.create_user_model import CreateUserRequest, CreateUserResponse
+from models.get_user_model import GetUserResponse
 
 
 class UsersGatewayHTTPClient(HTTPClient):
     def get_user_api(self, user_id: str) -> Response:
         return self.get(f"/api/v1/users/{user_id}")
 
-    def create_user_api(self, request: CreateUserRequestDict) -> Response:
-        return self.post("/api/v1/users", json=request)
+    def create_user_api(self, request: CreateUserRequest) -> Response:
+        return self.post("/api/v1/users", json=request.model_dump())
 
-    def get_user(self, user_id: str) -> GetUserResponseDict:
-        response = self.get_user_api(user_id)
+    def create_user(self) -> CreateUserResponse:
+        request = CreateUserRequest()
+        response = self.create_user_api(request)
         return response.json()
 
-    def create_user(self) -> CreateUserResponseDict:
-        request = CreateUserRequestDict(
-            email=f"user.{time.time()}@example.com",
-            lastName="string",
-            firstName="string",
-            middleName="string",
-            phoneNumber="string",
-        )
-        response = self.create_user_api(request)
+    def get_user(self, user_id: str) -> GetUserResponse:
+        response = self.get_user_api(user_id)
         return response.json()
 
 

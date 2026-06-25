@@ -1,70 +1,35 @@
-from typing import TypedDict
-
 from httpx import Response
 
 from clients.http.client import HTTPClient
 from clients.http.gateway.client import build_gateway_http_client
-
-
-# Добавили описание структуры карты
-class CardDict(TypedDict):
-
-    id: str
-    pin: str
-    cvv: str
-    type: str
-    status: str
-    accountId: str
-    cardNumber: str
-    cardHolder: str
-    expiryDate: str
-    paymentSystem: str
-
-
-class IssueVirtualCardRequestDict(TypedDict):
-
-    userId: str
-    accountId: str
-
-
-# Добавили описание структуры ответа выпуска виртуальной карты
-class IssueVirtualCardResponseDict(TypedDict):
-
-    card: CardDict
-
-
-class IssuePhysicalCardRequestDict(TypedDict):
-    userId: str
-    accountId: str
-
-
-# Добавили описание структуры ответа выпуска физической карты
-class IssuePhysicalCardResponseDict(TypedDict):
-    card: CardDict
+from models.issue_physical_card_model import (
+    IssuePhysicalCardRequest,
+    IssuePhysicalCardResponse,
+)
+from models.issue_virtual_card_model import (
+    IssueVirtualCardResponse,
+    IssueVirtualCardRequest,
+)
 
 
 class CardsGatewayHTTPClient(HTTPClient):
-    def issue_virtual_card_api(self, request: IssueVirtualCardRequestDict) -> Response:
-        return self.post("/api/v1/cards/issue-virtual-card", json=request)
+    def issue_virtual_card_api(self, request: IssueVirtualCardRequest) -> Response:
+        return self.post("/api/v1/cards/issue-virtual-card", json=request.model_dump())
 
-    def issue_physical_card_api(
-        self, request: IssuePhysicalCardRequestDict
-    ) -> Response:
-        return self.post("/api/v1/cards/issue-physical-card", json=request)
+    def issue_physical_card_api(self, request: IssuePhysicalCardRequest) -> Response:
+        return self.post("/api/v1/cards/issue-physical-card", json=request.model_dump())
 
-    # Добавили новый метод
     def issue_virtual_card(
         self, user_id: str, account_id: str
-    ) -> IssueVirtualCardResponseDict:
-        request = IssueVirtualCardRequestDict(userId=user_id, accountId=account_id)
+    ) -> IssueVirtualCardResponse:
+        request = IssueVirtualCardRequest(userId=user_id, accountId=account_id)
         response = self.issue_virtual_card_api(request)
         return response.json()
 
-    # Добавили новый метод
     def issue_physical_card(
         self, user_id: str, account_id: str
-    ) -> IssuePhysicalCardResponseDict:
-        request = IssuePhysicalCardRequestDict(userId=user_id, accountId=account_id)
+    ) -> IssuePhysicalCardResponse:
+        request = IssuePhysicalCardRequest(userId=user_id, accountId=account_id)
         response = self.issue_physical_card_api(request)
         return response.json()
 

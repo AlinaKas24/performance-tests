@@ -3,61 +3,28 @@ from typing import TypedDict
 from httpx import Response, QueryParams
 
 from clients.http.client import HTTPClient
-from clients.http.gateway.cards.cards_client import CardDict
 from clients.http.gateway.client import build_gateway_http_client
-
-
-class AccountDict(TypedDict):
-    id: str
-    type: str
-    cards: list[CardDict]  # Вложенная структура: список карт
-    status: str
-    balance: float
+from models.get_accounts_model import GetAccountsResponse
+from models.open_credit_card_account_model import (
+    OpenCreditCardAccountRequest,
+    OpenCreditCardAccountResponse,
+)
+from models.open_debit_card_account_model import (
+    OpenDebitCardAccountResponse,
+    OpenDebitCardAccountRequest,
+)
+from models.open_deposit_account_model import (
+    OpenDepositAccountRequest,
+    OpenDepositAccountResponse,
+)
+from models.open_savings_account_model import (
+    OpenSavingsAccountResponse,
+    OpenSavingsAccountRequest,
+)
 
 
 class GetAccountsQueryDict(TypedDict):
     userId: str
-
-
-class GetAccountsResponseDict(TypedDict):
-
-    accounts: list[AccountDict]
-
-
-class OpenDepositAccountRequestDict(TypedDict):
-
-    userId: str
-
-
-class OpenDepositAccountResponseDict(TypedDict):
-    account: AccountDict
-
-
-class OpenSavingsAccountRequestDict(TypedDict):
-    userId: str
-
-
-# Добавили описание структуры ответа открытия сберегательного счета
-class OpenSavingsAccountResponseDict(TypedDict):
-    account: AccountDict
-
-
-class OpenDebitCardAccountRequestDict(TypedDict):
-    userId: str
-
-
-# Добавили описание структуры ответа открытия дебетового счета
-class OpenDebitCardAccountResponseDict(TypedDict):
-    account: AccountDict
-
-
-class OpenCreditCardAccountRequestDict(TypedDict):
-    userId: str
-
-
-# Добавили описание структуры ответа открытия кредитного счета
-class OpenCreditCardAccountResponseDict(TypedDict):
-    account: AccountDict
 
 
 class AccountsGatewayHTTPClient(HTTPClient):
@@ -66,59 +33,61 @@ class AccountsGatewayHTTPClient(HTTPClient):
 
         return self.get("/api/v1/accounts", params=QueryParams(**query))
 
-    def open_deposit_account_api(
-        self, request: OpenDepositAccountRequestDict
-    ) -> Response:
+    def open_deposit_account_api(self, request: OpenDepositAccountRequest) -> Response:
 
-        return self.post("/api/v1/accounts/open-deposit-account", json=request)
+        return self.post(
+            "/api/v1/accounts/open-deposit-account", json=request.model_dump()
+        )
 
-    def open_savings_account_api(
-        self, request: OpenSavingsAccountRequestDict
-    ) -> Response:
+    def open_savings_account_api(self, request: OpenSavingsAccountRequest) -> Response:
 
-        return self.post("/api/v1/accounts/open-savings-account", json=request)
+        return self.post(
+            "/api/v1/accounts/open-savings-account", json=request.model_dump()
+        )
 
     def open_debit_card_account_api(
-        self, request: OpenDebitCardAccountRequestDict
+        self, request: OpenDebitCardAccountRequest
     ) -> Response:
 
-        return self.post("/api/v1/accounts/open-debit-card-account", json=request)
+        return self.post(
+            "/api/v1/accounts/open-debit-card-account", json=request.model_dump()
+        )
 
     def open_credit_card_account_api(
-        self, request: OpenCreditCardAccountRequestDict
+        self, request: OpenCreditCardAccountRequest
     ) -> Response:
 
-        return self.post("/api/v1/accounts/open-credit-card-account", json=request)
+        return self.post(
+            "/api/v1/accounts/open-credit-card-account", json=request.model_dump()
+        )
 
     # Добавили новый метод
-    def get_accounts(self, user_id: str) -> GetAccountsResponseDict:
+    def get_accounts(self, user_id: str) -> GetAccountsResponse:
         query = GetAccountsQueryDict(userId=user_id)
         response = self.get_accounts_api(query)
         return response.json()
 
     # Добавили новый метод
-    def open_deposit_account(self, user_id: str) -> OpenDepositAccountResponseDict:
-        request = OpenDepositAccountRequestDict(userId=user_id)
+    def open_deposit_account(self, user_id: str) -> OpenDepositAccountResponse:
+        request = OpenDepositAccountRequest(userId=user_id)
         response = self.open_deposit_account_api(request)
         return response.json()
 
     # Добавили новый метод
-    def open_savings_account(self, user_id: str) -> OpenSavingsAccountResponseDict:
-        request = OpenSavingsAccountRequestDict(userId=user_id)
+    def open_savings_account(self, user_id: str) -> OpenSavingsAccountResponse:
+        request = OpenSavingsAccountRequest(userId=user_id)
         response = self.open_savings_account_api(request)
         return response.json()
 
     # Добавили новый метод
-    def open_debit_card_account(self, user_id: str) -> OpenDebitCardAccountResponseDict:
-        request = OpenDebitCardAccountRequestDict(userId=user_id)
+    def open_debit_card_account(self, user_id: str) -> OpenDebitCardAccountResponse:
+        request = OpenDebitCardAccountRequest(userId=user_id)
         response = self.open_debit_card_account_api(request)
         return response.json()
 
     # Добавили новый метод
-    def open_credit_card_account(
-        self, user_id: str
-    ) -> OpenCreditCardAccountResponseDict:
-        request = OpenCreditCardAccountRequestDict(userId=user_id)
+    def open_credit_card_account(self, user_id: str) -> OpenCreditCardAccountResponse:
+        request = OpenCreditCardAccountRequest(userId=user_id)
         response = self.open_credit_card_account_api(request)
         return response.json()
 
