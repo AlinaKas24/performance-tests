@@ -2,6 +2,8 @@ import time
 
 from pydantic import BaseModel, Field
 
+from tools.fakers import fake
+
 
 class User(BaseModel):
     id: str
@@ -17,8 +19,8 @@ class CreateUserResponse(BaseModel):
 
 
 class CreateUserRequest(BaseModel):
-    email: str = Field(default=f"user.{time.time()}@example.com")
-    last_name: str = Field(default="string")
-    first_name: str = Field(default="string")
-    middle_name: str = Field(default="string")
-    phone_number: str = Field(default="string")
+    email: str = Field(default_factory=fake.email)
+    last_name: str = Field(default_factory=fake.last_name)
+    first_name: str = Field(default_factory=fake.first_name)
+    middle_name: str = Field(default_factory=fake.middle_name)
+    phone_number: str = Field(default_factory=fake.phone_number)
