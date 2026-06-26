@@ -1,9 +1,29 @@
+from enum import StrEnum
+
 from pydantic import BaseModel, Field
+
+from tools.fakers import fake
+
+
+class OperationStatus(StrEnum):
+    FAILED = "FAILED"
+    COMPLETED = "COMPLETED"
+    IN_PROGRESS = "IN_PROGRESS"
+
+
+class OperationType(StrEnum):
+    FEE = "FEE"
+    TOP_UP = "TOP_UP"
+    PURCHASE = "PURCHASE"
+    CASHBACK = "CASHBACK"
+    TRANSFER = "TRANSFER"
+    BILL_PAYMENT = "BILL_PAYMENT"
+    CASH_WITHDRAWAL = "CASH_WITHDRAWAL"
 
 
 class MakeBillPaymentRequest(BaseModel):
-    status: str = Field(default="COMPLETED")
-    amount: float = Field(default=55.77)
+    status: OperationStatus
+    amount: float = Field(default_factory=fake.amount)
     card_id: str = Field(alias="cardId")
     account_id: str = Field(alias="accountId")
 
