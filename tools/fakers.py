@@ -62,7 +62,7 @@ class Fake:
         return self.faker.first_name()
 
     def middle_name(self) -> str:
-        return self.faker.middle_name()
+        return self.faker.first_name()
 
     def phone_number(self) -> str:
         return self.faker.phone_number()
